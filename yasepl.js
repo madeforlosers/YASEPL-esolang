@@ -234,6 +234,14 @@ var commands = {
               return [el]
             }
           }
+      } else if(g==8){
+          if(vars[loaded]==null){
+            return [label]
+          }else{
+            if(el!=null){
+              return [el]
+            }
+          }
       }
 
 
