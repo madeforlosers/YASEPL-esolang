@@ -362,6 +362,9 @@ var commands = {
         case 8:
           vars[loaded] = new Date(date).getMilliseconds();
           break;
+        case 9:
+          vars[loaded] = new Date(date).now()
+          break;
       }
   },
   "ſ":function(add){
