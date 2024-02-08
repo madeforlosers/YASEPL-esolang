@@ -363,7 +363,7 @@ var commands = {
           vars[loaded] = new Date(date).getMilliseconds();
           break;
         case 9:
-          vars[loaded] = new Date(date).now()
+          vars[loaded] = date
           break;
       }
   },
