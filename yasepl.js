@@ -1,7 +1,6 @@
 // YASEPL language (yet another stupid esoteric programming language)
 const fs = require("fs");
 var prompt = require('prompt-sync')();
-import('node-fetch');
 const ansi = require("m.easyansi");
 var file = fs.readFileSync(process.argv[2]?process.argv[2]:"test.aepl", "utf8")
 var current_command="";
