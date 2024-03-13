@@ -18,6 +18,7 @@ function throwError(error) {
         "divide by 0",
         "cant support numbers less than 0",
         "variable/type mismatch",
+        "choice not in range",
     ][error] + ":(")
 
     console.log("\nlocated at "+current_command)
@@ -31,6 +32,7 @@ var vars = {
   "hashtag":"#",
   "greater":">",
   "lesser":"<",
+  "questionmark":"?",
   "exclamation":"!",
   "multiply":"*",
   "divide":"/",
@@ -49,6 +51,8 @@ var vars = {
   "backtick":"`",
   "pipe":"|",
   "undef":undefined,
+  "screenheight":process.stdout.rows,
+  "screenwidth":process.stdout.columns,
 }
 var labels = {}
 var firstvar = ""
@@ -376,6 +380,17 @@ var commands = {
   },
   "ſ":function(add){
     vars[loaded] += add
+  },
+  "π":function(){
+    if (loaded == "") throwError(5)
+    vars[loaded] = Math.PI;
+  },
+  "≈":function(mo = 0,x){
+    if(isNaN(parseInt(mo)))throwError(10);
+    if(mo < 0 || mo > 2)throwError(11);
+    if(isNaN(parseInt(x)))throwError(10);
+    if (loaded == "") throwError(5);
+    vars[loaded] = [Math.sin,Math.cos,Math.tan][mo](x);
   }
 }
 
@@ -411,6 +426,7 @@ function getargs(command, i) {
 }
 
 for (var i = 0; i < file.length; i++) {
+  
     text = file[i]
     if (text.match(detect) != null) {
         current_command = text;
