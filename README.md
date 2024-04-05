@@ -1,4 +1,4 @@
-# YASEPL-esolang (version 10498)
+# YASEPL-esolang (version 10530)
 yasepl is a stupid esolang i made
 
 note i started development on this months before i uploaded it to github
