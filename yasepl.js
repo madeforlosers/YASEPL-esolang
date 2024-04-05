@@ -50,6 +50,7 @@ var vars = {
   "closedbracket":"]",
   "backtick":"`",
   "pipe":"|",
+  "quote":"\"",
   "undef":undefined,
   "screenheight":process.stdout.rows,
   "screenwidth":process.stdout.columns,
@@ -374,7 +375,7 @@ var commands = {
           vars[loaded] = new Date(date).getMilliseconds();
           break;
         case 9:
-          vars[loaded] = date
+          vars[loaded] = new Date(date).getTime();
           break;
       }
   },
