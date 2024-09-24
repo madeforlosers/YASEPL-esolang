@@ -1,3 +1,5 @@
+to lyxal (the first person that starred this) thank you i love your work and you inspired me to make yasepl + other esolangs
+
 # YASEPL-esolang (version 91824-1416)
 yasepl is a stupid esolang i made
 
