@@ -62,97 +62,97 @@ var firstvar = ""
 var loaded = ""
 
 var commands = {
-    " ": function() {},
-    "#": function(t) {
+    " ": function () { },
+    "#": function (t) {
         if (t == undefined) {
             throwError(1)
         }
         process.stdout.write(t.toString());
 
     },
-    ">": function(t) {
+    ">": function (t) {
         if (t == undefined) {
             throwError(1);
         }
         console.log(t);
     },
-    "\<": function() {
+    "\<": function () {
         if (loaded == "") throwError(5)
         console.log(vars[loaded]);
     },
-    "!": function(b = firstvar) { //load variable
+    "!": function (b = firstvar) { //load variable
         if (b == "") throwError(4)
         loaded = b
     },
-    "'": function() { //prompt
+    "'": function () { //prompt
         if (loaded == "") throwError(5)
         vars[loaded] = prompt(">");
     },
-    "=": function(v) { //declare
+    "=": function (v) { //declare
         if (v == undefined) throwError(1);
         if (firstvar == "") firstvar = v
         vars[v] = 0
         loaded = v
     },
-    "$": function(n = 1) { //set 
+    "$": function (n = 1) { //set 
         if (loaded == "") throwError(5)
         vars[loaded] = parseFloat(n)
     },
-    ")": function(n) { //set 
+    ")": function (n) { //set 
         if (loaded == "") throwError(5)
         if (n == undefined) throwError(1)
         vars[loaded] = n
     },
-    ";": function(string, rep) {
+    ";": function (string, rep) {
         vars[loaded] = string.repeat(rep)
     },
-    "+": function(n = 1) { //add
+    "+": function (n = 1) { //add
         if (loaded == "") throwError(5)
         vars[loaded] += parseFloat(n)
     },
-    "-": function(n = 1) { //subtract
+    "-": function (n = 1) { //subtract
         if (loaded == "") throwError(5)
         vars[loaded] -= parseFloat(n)
     },
-    "/": function(n = 2) { //divide
+    "/": function (n = 2) { //divide
         if (loaded == "") throwError(5)
         if (parseFloat(n) == 0) throwError(8)
         vars[loaded] /= parseFloat(n)
     },
-    "*": function(n = 2) { //multiply
+    "*": function (n = 2) { //multiply
         if (loaded == "") throwError(5)
         vars[loaded] *= parseFloat(n)
     },
-    "^": function(n = 2) { //square
+    "^": function (n = 2) { //square
         if (loaded == "") throwError(5)
         vars[loaded] **= parseFloat(n)
     },
-    "&": function() { //sqrt
+    "&": function () { //sqrt
         if (loaded == "") throwError(5)
         vars[loaded] = Math.sqrt(vars[loaded])
     },
-    "%": function(n = 2) { //modulo
+    "%": function (n = 2) { //modulo
         if (loaded == "") throwError(5)
         if (n == 0) throwError(8)
         vars[loaded] = vars[loaded] % parseFloat(n);
     },
-    "~": function() {
+    "~": function () {
         if (loaded == "") throwError(5)
         process.stdout.write(vars[loaded].toString())
     },
-    "(": function() {
+    "(": function () {
         if (loaded == "") throwError(5)
         vars[loaded] = parseInt(vars[loaded])
     },
-    ":": function(num) {
+    ":": function (num) {
         if (loaded == "") throwError(5)
         vars[loaded] = num - vars[loaded]
     },
-    "?": function(n) {
+    "?": function (n) {
         if (n == undefined) throwError(1)
         return parseFloat(n)
     },
-    "@": function(label = 1, el = null) {
+    "@": function (label = 1, el = null) {
         if (loaded == "") throwError(5)
         if (vars[loaded] == 1) {
             return [label]
@@ -162,7 +162,7 @@ var commands = {
             }
         }
     },
-    "[": function(label = 1, el = null) {
+    "[": function (label = 1, el = null) {
         if (loaded == "") throwError(5)
         if (vars[loaded] != 1) {
             return [label]
@@ -172,7 +172,7 @@ var commands = {
             }
         }
     },
-    "]": function(label = 1, el = null) {
+    "]": function (label = 1, el = null) {
         if (loaded == "") throwError(5)
         if (vars[loaded] == 0) {
             return [label]
@@ -182,7 +182,7 @@ var commands = {
             }
         }
     },
-    "}": function(g = 1, num = 1, label = 1, el = null) {
+    "}": function (g = 1, num = 1, label = 1, el = null) {
         if (loaded == "") throwError(5)
         if (g == 1) {
             if (vars[loaded] > num) {
@@ -252,15 +252,15 @@ var commands = {
 
 
     },
-    "|": function(label = 1) {
+    "|": function (label = 1) {
         return [label]
     },
-    "`": function(name) {
+    "`": function (name) {
         if (name == undefined) throwError(2)
         //nothing, its just for labeling
 
     },
-    "¢": function(min, max) {
+    "¢": function (min, max) {
         if (min == undefined) throwError(2)
         if (max == undefined) throwError(2)
         if (loaded == "") throwError(5)
@@ -269,12 +269,12 @@ var commands = {
         vars[loaded] = Math.floor(Math.random() * (max - min + 1) + min);
 
     },
-    "£": function(name) { //set list
+    "£": function (name) { //set list
         if (name == undefined) throwError(2)
         vars[name] = []
         loaded = name
     },
-    "¤": function(index, item) { // set item in list
+    "¤": function (index, item) { // set item in list
         //if(typeof vars[loaded] != "object")throwError(10)
         if (index == undefined) throwError(2);
         if (item == undefined) throwError(2);
@@ -282,7 +282,7 @@ var commands = {
         if (loaded == "") throwError(5);
         vars[loaded][index] = item
     },
-    "¥": function(index, listname) { //set loaded variable to item in list (listname needs to be string)
+    "¥": function (index, listname) { //set loaded variable to item in list (listname needs to be string)
         if (listname == undefined) throwError(2);
         //if(typeof vars[listname] != "object")throwError(10)
         if (index == undefined) throwError(2);
@@ -290,63 +290,63 @@ var commands = {
         if (loaded == "") throwError(5);
         vars[loaded] = vars[listname][index]
     },
-    "§": function() { //pop loaded variable
+    "§": function () { //pop loaded variable
         if (typeof vars[loaded] != "object") throwError(10)
         if (loaded == "") throwError(5);
         vars[loaded].pop();
     },
-    "©": function(item) { //push to loaded variable
+    "©": function (item) { //push to loaded variable
         if (typeof vars[loaded] != "object") throwError(10)
         if (loaded == "") throwError(5);
         if (item == undefined) throwError(2);
         vars[loaded].push(item);
     },
-    "±": function(item) { //split string
+    "±": function (item) { //split string
         if (typeof vars[loaded] != "string") throwError(10)
         if (loaded == "") throwError(5);
         if (item == undefined) throwError(2);
         vars[loaded] = vars[loaded].split(item);
     },
-    "®": function(len) { //get length of anything
+    "®": function (len) { //get length of anything
         if (loaded == "") throwError(5);
         if (len == undefined) throwError(2);
         vars[loaded] = vars[len].length;
     },
-    "»": function() { //int to char
+    "»": function () { //int to char
         if (loaded == "") throwError(5);
         vars[loaded] = String.fromCharCode(vars[loaded])
     },
-    "°": function() {
+    "°": function () {
         if (loaded == "") throwError(5)
         vars[loaded] = undefined
     },
-    "¿": function(h) {
+    "¿": function (h) {
         // nothing, its a comment
     },
-    "™": function(listname, item) { //index of item in listname
+    "™": function (listname, item) { //index of item in listname
         if (loaded == "") throwError(5);
         if (item == undefined) throwError(2);
         if (listname == undefined) throwError(2);
         // if(typeof vars[listname] != "object")throwError(10)
         vars[loaded] = vars[listname].indexOf(item);
     },
-    "š": function() {
+    "š": function () {
         if (loaded == "") throwError(5)
         if (isNaN(parseInt(vars[loaded]))) throwError(10)
         console.log(String.fromCharCode(vars[loaded]))
     },
-    "›": function() {
+    "›": function () {
         if (loaded == "") throwError(5)
         if (isNaN(parseInt(vars[loaded]))) throwError(10)
         process.stdout.write(String.fromCharCode(vars[loaded]))
     },
-    "œ": function(compare) {
+    "œ": function (compare) {
         if (loaded == "") throwError(5)
         if (isNaN(parseInt(vars[loaded]))) throwError(10)
         if (isNaN(parseInt(compare))) throwError(10)
         vars[loaded] = vars[loaded] & compare
     },
-    "Ŕ": function(setting = 0, dat = null) {
+    "Ŕ": function (setting = 0, dat = null) {
         date = dat == null ? Date.now() : dat;
         switch (setting) {
             case 0:
@@ -381,28 +381,28 @@ var commands = {
                 break;
         }
     },
-    "ſ": function(add) {
+    "ſ": function (add) {
         vars[loaded] += add
     },
-    "π": function() {
+    "π": function () {
         if (loaded == "") throwError(5)
         vars[loaded] = Math.PI;
     },
-    "≈": function(mo = 0, x) {
+    "≈": function (mo = 0, x) {
         if (isNaN(parseInt(mo))) throwError(10);
         if (mo < 0 || mo > 2) throwError(11);
         if (isNaN(parseInt(x))) throwError(10);
         if (loaded == "") throwError(5);
         vars[loaded] = [Math.sin, Math.cos, Math.tan][mo](x);
     },
-    "←": function(text, num) {
+    "←": function (text, num) {
         if (typeof vars[text] != "string") throwError(10);
         if (isNaN(parseInt(num))) throwError(10);
         if (num < 0) throwError(9);
         if (num > vars[text].length) throwError(11);
         vars[loaded] = vars[text].slice(0, num)
     },
-    "↔": function(text, min, max) {
+    "↔": function (text, min, max) {
         if (typeof vars[text] != "string") throwError(10);
         if (isNaN(parseInt(min))) throwError(10);
         if (isNaN(parseInt(max))) throwError(10);
@@ -412,8 +412,11 @@ var commands = {
 
         vars[loaded] = vars[text].slice(min, max)
     },
-    "„": function() {
+    "„": function () {
         // nothing, for more accepting strings
+    },
+    "‽": function () {
+        // comments.
     }
 }
 
@@ -451,9 +454,9 @@ function getargs(command, i) {
 for (var i = 0; i < file.length; i++) {
 
     var text = file[i]
-    if (text == "„") {
+    if (text == "„" || text == "‽") {
         if (isAcceptingStr) {
-            vars[loaded] = acceptingStrBelt;
+            if (text == "„") vars[loaded] = acceptingStrBelt;
             acceptingStrBelt = "";
         }
         isAcceptingStr = !isAcceptingStr;
