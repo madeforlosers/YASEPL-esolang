@@ -96,7 +96,7 @@ var commands = {
     },
     "$": function (n = 1) { //set 
         if (loaded == "") throwError(5)
-        vars[loaded] = parseFloat(n)
+        vars[loaded] = typeof vars[loaded]=="bigint"?BigInt(n):parseFloat(n);
     },
     ")": function (n) { //set 
         if (loaded == "") throwError(5)
@@ -108,33 +108,35 @@ var commands = {
     },
     "+": function (n = 1) { //add
         if (loaded == "") throwError(5)
-        vars[loaded] += parseFloat(n)
+        vars[loaded] += typeof vars[loaded]=="bigint"?BigInt(n):parseFloat(n);
+        
     },
     "-": function (n = 1) { //subtract
         if (loaded == "") throwError(5)
-        vars[loaded] -= parseFloat(n)
+        vars[loaded] -= typeof vars[loaded]=="bigint"?BigInt(n):parseFloat(n);
     },
     "/": function (n = 2) { //divide
         if (loaded == "") throwError(5)
         if (parseFloat(n) == 0) throwError(8)
-        vars[loaded] /= parseFloat(n)
+        vars[loaded] /= typeof vars[loaded]=="bigint"?BigInt(n):parseFloat(n);
     },
     "*": function (n = 2) { //multiply
         if (loaded == "") throwError(5)
-        vars[loaded] *= parseFloat(n)
+        vars[loaded] *= typeof vars[loaded]=="bigint"?BigInt(n):parseFloat(n);
     },
     "^": function (n = 2) { //square
         if (loaded == "") throwError(5)
-        vars[loaded] **= parseFloat(n)
+        vars[loaded] **= typeof vars[loaded]=="bigint"?BigInt(n):parseFloat(n);
     },
     "&": function () { //sqrt
-        if (loaded == "") throwError(5)
+        if (loaded == "") throwError(5);
+        if(typeof vars[loaded]=="bigint") throwError(10);
         vars[loaded] = Math.sqrt(vars[loaded])
     },
     "%": function (n = 2) { //modulo
         if (loaded == "") throwError(5)
         if (n == 0) throwError(8)
-        vars[loaded] = vars[loaded] % parseFloat(n);
+        vars[loaded] = vars[loaded] % (typeof vars[loaded]=="bigint"?BigInt(n):parseFloat(n));
     },
     "~": function () {
         if (loaded == "") throwError(5)
@@ -146,7 +148,7 @@ var commands = {
     },
     ":": function (num) {
         if (loaded == "") throwError(5)
-        vars[loaded] = num - vars[loaded]
+        vars[loaded] = (typeof vars[loaded]=="bigint"?BigInt(n):parseFloat(n)) - vars[loaded]
     },
     "?": function (n) {
         if (n == undefined) throwError(1)
@@ -417,6 +419,12 @@ var commands = {
     },
     "‽": function () {
         // comments.
+    },
+    "¶":function(v){
+        if (v == undefined) throwError(1);
+        if (firstvar == "") firstvar = v
+        vars[v] = 0n
+        loaded = v
     }
 }
 
@@ -439,7 +447,7 @@ function getargs(command, i) {
             // console.log("digit "+arg)
             args.push(parseFloat(arg))
         } else if (arg.match(/\w+/g) != null) {
-            if (file[i] == "=" || file[i] == "!" || file[i] == "£") {
+            if (file[i] == "¶" || file[i] == "=" || file[i] == "!" || file[i] == "£") {
                 args.push(arg)
             } else {
 
@@ -487,3 +495,4 @@ for (var i = 0; i < file.length; i++) {
         acceptingStrBelt += text;
     }
 }
+//console.log(vars)
