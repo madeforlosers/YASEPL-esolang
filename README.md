@@ -1,6 +1,6 @@
 to lyxal (the first person that starred this) thank you i love your work and you inspired me to make yasepl + other esolangs
 
-# YASEPL-esolang (version 112524-2123)
+# YASEPL-esolang (version 90525)
 yasepl is a stupid esolang i made
 
 note i started development on this months before i uploaded it to github
@@ -15,3 +15,4 @@ view the docs in the `docs.md` file. ill make it a wiki soon
 - 10530
 - 91824-1416
 - 112524-2123
+- 90525
